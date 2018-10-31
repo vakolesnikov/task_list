@@ -7,16 +7,17 @@ Vue.use(VueRouter);
 
 const router = new VueRouter({
    routes: [
-       {path: '/main', component: App},
+       {
+           path: '/:id',
+           name: 'main',
+           component: App
+       },
    ]
 });
 
 
-// new Vue({
-//     render: h => h(App)
-// }).$mount('#app');
-
 new Vue({
-    router
-}).$mount('#app')
+    router,
+    render: h => h(App)
+}).$mount('#app');
 

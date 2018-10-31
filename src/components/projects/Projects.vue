@@ -7,7 +7,9 @@
                 @click="$emit('all')"
                 class="projects-item"
             >
-                Все
+                <router-link :to="{ name: 'main', params: { id: 'All' }}">
+                    Все
+                </router-link>
             </div>
             <div v-if="!projects.length">
                 Загрузка...
@@ -18,7 +20,9 @@
                 @click="$emit('filter', project.id)"
                 class="projects-item"
             >
-                {{ project.title }}
+                <router-link :to="{ name: 'main', params: { id: project.title }}">
+                    {{ project.title }}
+                </router-link>
             </div>
         </div>
     </div>
