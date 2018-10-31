@@ -2,28 +2,26 @@
     <div>
         <Title title="Проекты: "/>
         <div class="projects">
-            <div
-                v-if="projects.length"
-                @click="$emit('all')"
-                class="projects-item"
+            <router-link
+                    v-if="projects.length"
+                    :to="{ name: 'main', params: { id: 'All' }}"
+                    class="projects-item"
             >
-                <router-link :to="{ name: 'main', params: { id: 'All' }}">
-                    Все
-                </router-link>
-            </div>
-            <div v-if="!projects.length">
+                Все
+            </router-link>
+            <div v-else>
                 Загрузка...
             </div>
-            <div
-                v-for="project in projects"
-                :key="project.id"
-                @click="$emit('filter', project.id)"
-                class="projects-item"
+
+            <router-link
+                    v-for="project in projects"
+                    :key="project.id"
+                    :to="{ name: 'main', params: { id: project.id }}"
+                    class="projects-item"
             >
-                <router-link :to="{ name: 'main', params: { id: project.title }}">
-                    {{ project.title }}
-                </router-link>
-            </div>
+                {{ project.title }}
+            </router-link>
+
         </div>
     </div>
 </template>
@@ -59,10 +57,16 @@
         border: 2px solid #f0f3ff;
         border-radius: 7px;
 
+        text-decoration: none;
+        color: #1e294c;
         font-size: 20px;
         text-transform: uppercase;
-        color: #1e294c;
 
         cursor: pointer;
+    }
+
+    .router-link-exact-active {
+        background-color: #b5af9a;
+        color: #580808;
     }
 </style>

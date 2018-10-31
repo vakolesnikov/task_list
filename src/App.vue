@@ -1,7 +1,7 @@
 <template>
     <div class="main-container">
-        <Projects :projects="projects" @filter="handleTaskFilter" @all="handleAllTasksVisible"/>
-        <Tasks :tasks="visibleTasks"/>
+        <Projects :projects="projects"/>
+        <Tasks :tasks="renderVisibleTasks"/>
     </div>
 </template>
 
@@ -27,23 +27,19 @@
             })
         },
 
-        beforeCreate: function() {
+        created: function() {
             appServices.getProjects().then(res => this.projects = res);
             appServices.getTasks().then((res) => {
                 this.tasks = res;
-                this.visibleTasks = res;
             });
         },
 
-        methods: {
-            handleTaskFilter(id) {
-                this.visibleTasks = this.tasks.filter(item => item.project_id === id)
+        computed: {
+            renderVisibleTasks() {
+                if (this.$route.params.id === 'All') return this.tasks;
+                return this.tasks.filter(item => item.project_id === this.$route.params.id)
             },
-
-            handleAllTasksVisible() {
-                this.visibleTasks = this.tasks;
-            },
-        }
+        },
     }
 </script>
 
