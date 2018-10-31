@@ -2,10 +2,17 @@
     <div>
         <Title title="Задачи:"/>
         <div>
-            <div v-for="task in tasks" :key="task.project_id" class="task-item">
-                {{ task.title }}
+
+            <div v-if="tasks.length">
+                <div
+                    v-for="task in tasks"
+                    :key="task.project_id"
+                    class="task-item"
+                >
+                    {{ task.title }}
+                </div>
             </div>
-            <div v-if="!tasks">
+            <div v-else>
                 Загрузка...
             </div>
         </div>

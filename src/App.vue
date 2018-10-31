@@ -1,14 +1,13 @@
 <template>
     <div class="main-container">
         <Projects :projects="projects"/>
-        <Tasks :tasks="renderVisibleTasks"/>
+        <Tasks :tasks="visibleTasks"/>
     </div>
 </template>
 
 <script>
     import Projects from './components/projects/Projects';
     import Tasks from './components/tasks/Tasks';
-
     import appServices from "./services/appServices";
 
     export default {
@@ -19,25 +18,22 @@
             Projects,
         },
 
-        data: function() {
+        data() {
             return({
                 projects: [],
                 tasks: [],
-                visibleTasks: this.tasks
             })
         },
 
-        created: function() {
+        created() {
             appServices.getProjects().then(res => this.projects = res);
-            appServices.getTasks().then((res) => {
-                this.tasks = res;
-            });
+            appServices.getTasks().then(res => this.tasks = res);
         },
 
         computed: {
-            renderVisibleTasks() {
-                if (this.$route.params.id === 'All') return this.tasks;
-                return this.tasks.filter(item => item.project_id === this.$route.params.id)
+            visibleTasks() {
+                if (!this.$route.params.id) return this.tasks;
+                return this.tasks.filter(item => item.project_id === +this.$route.params.id)
             },
         },
     }

@@ -4,7 +4,7 @@
         <div class="projects">
             <router-link
                     v-if="projects.length"
-                    :to="{ name: 'main', params: { id: 'All' }}"
+                    to="/"
                     class="projects-item"
             >
                 Все
